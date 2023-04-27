@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// common layout used by both EditContact and CreateContact pages
 export default function FormLayout({ onSave, contact }) {
     // refs ============
     const [saving, setSaving] = useState(false);

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { getFormattedAddress } from "../utils/getFormattedAddress";
 import { DeleteContact } from "../components";
 import { removeContact } from "../api";
-import { toast } from "react-hot-toast";
 import { deleteContact } from "../store/contactSlice";
 
+// this page will show all the contacts
 export default function ShowContacts() {
     const [showPopup, setShowPopup] = useState(false);
     const [indexToRemove, setIndexToRemove] = useState(null);
