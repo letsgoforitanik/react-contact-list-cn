@@ -49,7 +49,7 @@ export default function ShowContacts() {
                     </h2>
                     <div>
                         <Link to="/contacts/create" className="btn btn-success">
-                            Add New Employee
+                            Add New Contact
                         </Link>
                     </div>
                 </div>
