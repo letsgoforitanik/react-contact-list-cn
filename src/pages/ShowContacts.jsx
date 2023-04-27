@@ -38,6 +38,8 @@ export default function ShowContacts() {
         toast.error("Some error occurred. Please try again");
     }
 
+    const handleModalClose = () => setShowPopup(false);
+
     if (contacts.length === 0) return <p>Loading ...</p>;
 
     return (
@@ -90,7 +92,7 @@ export default function ShowContacts() {
                     </tbody>
                 </table>
             </div>
-            {showPopup && <DeleteContact onDelete={handleContactDelete} />}
+            {showPopup && <DeleteContact onDelete={handleContactDelete} onClose={handleModalClose} />}
         </React.Fragment>
     );
 }

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function DeleteContact({ onDelete }) {
-    const navigateTo = useNavigate();
+export default function DeleteContact({ onDelete, onClose }) {
     const [deleting, setDeleting] = useState(false);
 
-    const handleCancelBtnClick = () => navigateTo("/");
+    const handleCancelBtnClick = () => onClose && onClose();
 
     function handleDeleteClick() {
         setDeleting(true);
@@ -20,7 +18,9 @@ export default function DeleteContact({ onDelete }) {
                         <span>
                             Delete <b>Contact</b>
                         </span>
-                        <span className="close-btn">X</span>
+                        <span className="close-btn" onClick={handleCancelBtnClick}>
+                            X
+                        </span>
                     </h2>
                     <div className="card-body">
                         <p>Are you sure you want to delete this contact ?</p>
