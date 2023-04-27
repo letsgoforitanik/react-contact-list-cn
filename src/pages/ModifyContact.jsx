@@ -1,13 +1,30 @@
 import React from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { FormLayout } from "../components";
-import { useParams } from "react-router-dom";
-import { store } from "../store";
+import { changeContact } from "../api";
+import { useDispatch } from "react-redux";
+import { editContact } from "../store/contactSlice";
 
 export default function ModifyContact() {
     const { contactId } = useParams();
-    const contact = store.getState().contacts[contactId];
+    const { state } = useLocation();
+    const { contact, index } = state;
+    const navigateTo = useNavigate();
+    const dispatch = useDispatch();
 
-    async function handleSave() {}
+    async function handleSave(info) {
+        const contact = await changeContact(contactId, info);
+
+        if (contact instanceof Object) {
+            dispatch(editContact({ info, index }));
+            toast.success("Contact successfully updated");
+            navigateTo("/");
+            return;
+        }
+
+        toast.error("Some error occurred. Please try again");
+    }
 
     return (
         <div className="card">

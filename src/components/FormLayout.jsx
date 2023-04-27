@@ -1,15 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function FormLayout({ onSave, contact }) {
     // refs ============
+    const [saving, setSaving] = useState(false);
     const [txtName, txtEmail, txtStreet, txtSuite] = [useRef(), useRef(), useRef(), useRef()];
     const [txtCity, txtZipcode, txtPhone, txtWebsite] = [useRef(), useRef(), useRef(), useRef()];
     const navigateTo = useNavigate();
 
     const handleCancelClick = () => navigateTo("/");
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
         event.preventDefault();
 
         const name = txtName.current.value;
@@ -23,7 +24,9 @@ export default function FormLayout({ onSave, contact }) {
 
         const info = { name, email, address: { street, suite, city, zipcode }, phone, website };
 
-        onSave && onSave(info);
+        setSaving(true);
+
+        onSave && onSave(info).then(() => setSaving(false));
     }
 
     return (
@@ -64,8 +67,8 @@ export default function FormLayout({ onSave, contact }) {
                 <button className="btn btn-default" onClick={handleCancelClick}>
                     Cancel
                 </button>
-                <button className="btn btn-success" type="submit">
-                    Save
+                <button className="btn btn-success" type="submit" disabled={saving}>
+                    {saving ? "Saving..." : "Save"}
                 </button>
             </div>
         </form>
